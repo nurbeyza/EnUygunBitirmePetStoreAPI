@@ -1,5 +1,6 @@
 package RestAssured;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import groovy.util.logging.Slf4j;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
@@ -8,14 +9,20 @@ import org.testng.Assert;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+@Slf4j
 public class PetStoreTest {
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(PetStoreTest.class);
 
     Response response;
     String [] bodyID3=null;
     String [] bodyID1=null;
 
+    //Available durumunda olan tüm pathleri getirir.
     @Test(priority = 1)
     public void findByStatusAvailable() throws JsonProcessingException {
+
+        log.info("Available durumunda olan tüm pathleri getirir.");
 
         response = given()
                 .header("Content-Type","application/json")
@@ -30,7 +37,7 @@ public class PetStoreTest {
         String body=response.getBody().asString();
         System.out.println(body);
         String [] bodySplit=body.split(",");
-        bodyID3= bodySplit[22].split(":");
+        bodyID3= bodySplit[16].split(":");
         bodyID1=bodySplit[0].split(":");
         Assert.assertEquals(200,response.getStatusCode());
         Assert.assertEquals("HTTP/1.1 200 OK",response.getStatusLine());
@@ -38,8 +45,10 @@ public class PetStoreTest {
 
     }
 
+    //Pending durumunda olan tüm pathleri getirir.
     @Test(priority = 2)
     public void findByStatusPending()  throws JsonProcessingException{
+        log.info("Pending durumunda olan tüm pathleri getirir.");
         response = given()
                 .header("Content-Type","application/json")
                 .when()
@@ -56,8 +65,10 @@ public class PetStoreTest {
 
     }
 
+    //Sold durumunda olan tüm pathleri getirir.
     @Test(priority = 3)
     public void findByStatusSold()  throws JsonProcessingException{
+        log.info("Sold durumunda olan tüm pathleri getirir.");
         response = given()
                 .header("Content-Type","application/json")
                 .when()
@@ -75,8 +86,10 @@ public class PetStoreTest {
 
     }
 
+    //Available durumunda olan tüm pathlerin üçüncüsünü getirir.
     @Test(priority = 4)
     public void setPetID() throws JsonProcessingException {
+        log.info("Available durumunda olan tüm pathlerin üçüncüsünü getirir.");
         System.out.println(bodyID3[1]);
         response = given()
                 .header("Content-Type","application/json")
@@ -92,8 +105,10 @@ public class PetStoreTest {
         Assert.assertEquals("HTTP/1.1 200 OK",response.getStatusLine());
     }
 
+    //Verilen veriler ile eşit olan petin durumunu günceller.
     @Test(priority = 5)
     public void updatePet() throws JsonProcessingException{
+        log.info("Verilen veriler ile eşit olan petin durumunu günceller.");
         response = given()
                 .header("Content-Type","application/x-www-form-urlencoded")
                 .body("{\r\n    \"name\": \"fish\",\r\n    \"status\": \"sold\"\r\n}")
@@ -109,8 +124,10 @@ public class PetStoreTest {
         Assert.assertEquals("HTTP/1.1 200 OK",response.getStatusLine());
     }
 
+    //Verilen ID değerindeki peti siler.
     @Test(priority = 6 )
     public void deletePet(){
+        log.info("Verilen ID değerindeki peti siler.");
         response = given()
                 .header("Content-Type","application/json")
                 .when()
@@ -120,6 +137,8 @@ public class PetStoreTest {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .extract().response();
+        Assert.assertEquals(200,response.getStatusCode());
+        Assert.assertEquals("HTTP/1.1 200 OK",response.getStatusLine());
     }
 
 
