@@ -6,6 +6,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -18,6 +19,10 @@ public class PetStoreTest {
     String [] bodyID3=null;
     String [] bodyID1=null;
 
+    public PetStoreTest(){
+        baseURI="https://petstore.swagger.io/v2/";
+    }
+
     //Available durumunda olan tüm pathleri getirir.
     @Test(priority = 1, description = "Available durumunda olan tüm pathleri getirilir")
     public void findByStatusAvailable() throws JsonProcessingException {
@@ -27,7 +32,7 @@ public class PetStoreTest {
         response = given()
                 .header("Content-Type","application/json")
                 .when()
-                .get("https://petstore.swagger.io/v2/pet/findByStatus?status=available")
+                .get(baseURI+"pet/findByStatus?status=available")
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
@@ -51,7 +56,7 @@ public class PetStoreTest {
         response = given()
                 .header("Content-Type","application/json")
                 .when()
-                .get("https://petstore.swagger.io/v2/pet/findByStatus?status=pending")
+                .get(baseURI+"pet/findByStatus?status=pending")
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
@@ -71,7 +76,7 @@ public class PetStoreTest {
         response = given()
                 .header("Content-Type","application/json")
                 .when()
-                .get("https://petstore.swagger.io/v2/pet/findByStatus?status=sold")
+                .get(baseURI+"pet/findByStatus?status=sold")
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
@@ -92,7 +97,7 @@ public class PetStoreTest {
         response = given()
                 .header("Content-Type","application/json")
                 .when()
-                .get("https://petstore.swagger.io/v2/pet/"+bodyID3[1])
+                .get(baseURI+"pet/"+bodyID3[1])
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
@@ -111,7 +116,7 @@ public class PetStoreTest {
                 .header("Content-Type","application/x-www-form-urlencoded")
                 .body("{\r\n    \"name\": \"fish\",\r\n    \"status\": \"sold\"\r\n}")
                 .when()
-                .post("https://petstore.swagger.io/v2/pet/"+bodyID1[1])
+                .post(baseURI+"pet/"+bodyID1[1])
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
@@ -129,7 +134,7 @@ public class PetStoreTest {
         response = given()
                 .header("Content-Type","application/json")
                 .when()
-                .delete("https://petstore.swagger.io/v2/pet/"+bodyID1[1])
+                .delete(baseURI+"pet/"+bodyID1[1])
                 .then()
                 //status kod direkt burada kontrol edildi.
                 .statusCode(200)
