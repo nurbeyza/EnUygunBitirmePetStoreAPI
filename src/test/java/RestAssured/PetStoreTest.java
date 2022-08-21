@@ -19,7 +19,7 @@ public class PetStoreTest {
     String [] bodyID1=null;
 
     //Available durumunda olan tüm pathleri getirir.
-    @Test(priority = 1)
+    @Test(priority = 1, description = "Available durumunda olan tüm pathleri getirilir")
     public void findByStatusAvailable() throws JsonProcessingException {
 
         log.info("Available durumunda olan tüm pathleri getirir.");
@@ -35,7 +35,6 @@ public class PetStoreTest {
                 .extract().response();
 
         String body=response.getBody().asString();
-        System.out.println(body);
         String [] bodySplit=body.split(",");
         bodyID3= bodySplit[16].split(":");
         bodyID1=bodySplit[0].split(":");
@@ -46,7 +45,7 @@ public class PetStoreTest {
     }
 
     //Pending durumunda olan tüm pathleri getirir.
-    @Test(priority = 2)
+    @Test(priority = 2,description = "Pending durumunda olan tüm pathleri getirilir")
     public void findByStatusPending()  throws JsonProcessingException{
         log.info("Pending durumunda olan tüm pathleri getirir.");
         response = given()
@@ -66,7 +65,7 @@ public class PetStoreTest {
     }
 
     //Sold durumunda olan tüm pathleri getirir.
-    @Test(priority = 3)
+    @Test(priority = 3, description = "Sold durumunda olan tüm pathleri getirilir")
     public void findByStatusSold()  throws JsonProcessingException{
         log.info("Sold durumunda olan tüm pathleri getirir.");
         response = given()
@@ -87,10 +86,9 @@ public class PetStoreTest {
     }
 
     //Available durumunda olan tüm pathlerin üçüncüsünü getirir.
-    @Test(priority = 4)
+    @Test(priority = 4,description = "Available durumunda olan tüm pathlerin üçüncüsünü getirilir")
     public void setPetID() throws JsonProcessingException {
         log.info("Available durumunda olan tüm pathlerin üçüncüsünü getirir.");
-        System.out.println(bodyID3[1]);
         response = given()
                 .header("Content-Type","application/json")
                 .when()
@@ -106,9 +104,9 @@ public class PetStoreTest {
     }
 
     //Verilen veriler ile eşit olan petin durumunu günceller.
-    @Test(priority = 5)
+    @Test(priority = 5, description = "Girilen verilere sahip olan petin durumu güncellenir")
     public void updatePet() throws JsonProcessingException{
-        log.info("Verilen veriler ile eşit olan petin durumunu günceller.");
+        log.info("Girilen veriler ile eşit olan petin durumunu günceller.");
         response = given()
                 .header("Content-Type","application/x-www-form-urlencoded")
                 .body("{\r\n    \"name\": \"fish\",\r\n    \"status\": \"sold\"\r\n}")
@@ -125,7 +123,7 @@ public class PetStoreTest {
     }
 
     //Verilen ID değerindeki peti siler.
-    @Test(priority = 6 )
+    @Test(priority = 6 , description = "Verilen ID değerindeki pet silinir")
     public void deletePet(){
         log.info("Verilen ID değerindeki peti siler.");
         response = given()

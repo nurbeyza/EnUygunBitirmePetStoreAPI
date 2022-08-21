@@ -16,3 +16,6 @@ Bu istekten dönen verinin üçüncü "id" bilgisini farklı bir istekte kullan�
 
 <img src="https://github.com/nurbeyza/EnUygunBitirmePetStoreAPI/blob/main/100%C4%B1.JPG" width="auto">
 
+## Anlaşılır adımlar ile raporlanan allure report görüntülerinin örneği aşağıdadır.
+<img src="https://github.com/nurbeyza/EnUygunBitirmePetStoreAPI/blob/main/allure-report3.JPG" width="auto">
+
